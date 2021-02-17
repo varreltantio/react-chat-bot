@@ -1,25 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
+import React, {useState} from "react";
+import {BrowserRouter as Router, Route} from "react-router-dom";
 
-function App() {
+import SideBar from "./components/SideBar/SideBar";
+
+import ChatRini from "./components/ChatBot/ChatRini";
+import ChatCitra from "./components/ChatBot/ChatCitra";
+import ChatAlex from "./components/ChatBot/ChatAlex";
+
+import Join from "./components/Join/Join";
+
+import "./App.css";
+
+const App = () =>  {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="app">
+      <div className="app__container" id="app__container">
+        <Router>
+          <SideBar />
+          <Route path="/" exact component={Join} />
+          <Route path="/chat/rini" exact component={ChatRini} />
+          <Route path="/chat/citra" exact component={ChatCitra} />
+          <Route path="/chat/alex" exact component={ChatAlex} />
+        </Router>
+      </div>
     </div>
-  );
+  )
 }
 
 export default App;

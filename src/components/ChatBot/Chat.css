@@ -1,0 +1,36 @@
+.rsc {
+  flex: 0.7 1;
+  display: flex;
+  flex-direction: column;
+}
+.rsc-header {
+  padding: 0 20px !important;
+  background-color: #fff !important;
+  border-bottom: solid 1px #f2f2f2;
+}
+.avatar-headerchat {
+  width: 20px;
+  height: 56px;
+}
+.rsc-header-title {
+  color: #000 !important;
+}
+.rsc-container {
+  width: auto !important;
+  border-radius: 0px !important;
+}
+.rsc-content {
+  background-color: #e5ddd5;
+}
+.rsc-ts-bot .rsc-ts-bubble {
+  background: #fff !important;
+  color: #000 !important;
+}
+.rsc-ts-user .rsc-ts-bubble {
+  background: #cfe9ba !important;
+  color: #000 !important;
+}
+.rsc-os-option-element {
+  background: #cfe9ba !important;
+  color: #000 !important;
+}
