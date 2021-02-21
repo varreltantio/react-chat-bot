@@ -5,7 +5,7 @@ import Bambang from "../../assets/bambang.jpg";
 
 import "./SideBar.css";
 
-const SideBar = () => (
+const SideBar = ({rini, citra, alex, handleChat}) => (
   <div className="sidebar">
     <div className="sidebar__header">
       <div class="MuiAvatar-root MuiAvatar-circle">
@@ -23,7 +23,7 @@ const SideBar = () => (
     </div>
 
     <div className="sidebar__chhatsGroups">
-      <ChatRoom />
+      <ChatRoom rini={rini} citra={citra} alex={alex} handleChat={handleChat} />
     </div>
   </div>
 )
