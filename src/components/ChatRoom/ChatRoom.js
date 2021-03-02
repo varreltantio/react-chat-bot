@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { FaStar, FaTimesCircle } from "react-icons/fa";
-import swal from '@sweetalert/with-react';
+import swal from 'sweetalert';
 
 import "./ChatRoom.css";
 
