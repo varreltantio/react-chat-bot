@@ -1,13 +1,31 @@
 import React from "react";
+import { useHistory } from "react-router-dom";
+import { useAuth } from "../../contexts/AuthContext";
 
-import bg from "../../assets/bg.jpg";
+import "./Join.css";
+import People from "./People";
+import Font from "./Font";
 
-import "./Join.css"
+export default function Join() {
+  const { loginWithGoogle } = useAuth();
 
-const Join = () => (
-  <div className="join">
-    {/* <img src={bg} className="bg-join" /> */}
-  </div>
-)
+  const history = useHistory();
 
-export default Join;
+  async function handleLoginWithGoogle(e) {
+    e.preventDefault();
+
+    try {
+      await loginWithGoogle();
+      history.push("/");
+    } catch {
+      console.log("Error");
+    }
+  }
+
+  return (
+    <div className="join">
+      <People />
+      <Font handleLogin={handleLoginWithGoogle} />
+    </div>
+  );
+}

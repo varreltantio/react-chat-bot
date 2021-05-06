@@ -1,52 +1,54 @@
-import React, {useState} from "react";
-import {BrowserRouter as Router, Route} from "react-router-dom";
+import React, { useState } from "react";
+import { BrowserRouter as Router, Route } from "react-router-dom";
+import PrivateRoute from "./services/PrivateRoute";
+import { database } from "./firebase";
+
+import { AuthProvider } from "./contexts/AuthContext";
+import { ProfileProvider } from "./contexts/ProfileContext";
 
 import SideBar from "./components/SideBar/SideBar";
 
-import ChatRini from "./components/ChatBot/ChatRini";
-import ChatCitra from "./components/ChatBot/ChatCitra";
-import ChatAlex from "./components/ChatBot/ChatAlex";
-
+import Chat from "./components/ChatBot/Chat";
+import Home from "./components/Home/Home";
 import Join from "./components/Join/Join";
 
 import "./App.css";
 
-const App = () =>  {
-  const [rini, setRini] = useState({open: false, wrong: 0, point: 0, success: false});
-  const [riniMessages, setRiniMessages] = useState([]);
-  const [citra, setCitra] = useState({open: false, wrong: 0, point: 0, success: false});
-  const [citraMessages, setCitraMessages] = useState([]);
-  const [alex, setAlex] = useState({open: false, wrong: 0, point: 0, success: false});
-  const [alexMessages, setAlexMessages] = useState([]);
+const App = () => {
+  const [game, setGame] = useState([]);
 
-  const handleChat = (value) => {
-    if (value.name === "Rini") {    
-      setRini({open: true, wrong: value.wrong, point: value.point ? value.point : 0, success: value.success});
-      setRiniMessages(value.messages);  
-    }
-    if (value.name === "Citra") {
-      setCitra({open: true, wrong: value.wrong, point: value.point ? value.point : 0, success: value.success});
-      setCitraMessages(value.messages); 
-    }
-    if (value.name === "Alex") {
-      setAlex({open: true, wrong: value.wrong, point: value.point ? value.point : 0, success: value.success});
-      setAlexMessages(value.messages); 
-    }
-  }
+  const handleGame = (id) => {
+    const ref = database.ref(`games/${id}`);
+
+    ref.on("value", (snapshot) => {
+      setGame(snapshot.val());
+    });
+
+    return () => ref.off;
+  };
 
   return (
     <div className="app">
       <div className="app__container" id="app__container">
-        <Router>
-          <SideBar rini={rini} citra={citra} alex={alex} handleChat={handleChat} />
-          <Route path="/" exact component={Join} />
-          <Route path="/chat/rini" exact component={() => <ChatRini handleChat={handleChat} messages={riniMessages} wrong={rini.wrong} />}/>
-          <Route path="/chat/citra" exact component={() => <ChatCitra handleChat={handleChat} messages={citraMessages} wrong={citra.wrong} />} />
-          <Route path="/chat/alex" exact component={() => <ChatAlex handleChat={handleChat} messages={alexMessages} wrong={alex.wrong} />} />
-        </Router>
+        <AuthProvider>
+          <Router>
+            <Route path="/join" component={Join} />
+            <ProfileProvider>
+              <PrivateRoute
+                path={["/", "/chat"]}
+                component={() => <SideBar handleGame={handleGame} />}
+              />
+              <PrivateRoute exact path="/" component={Home} />
+              <PrivateRoute
+                path="/chat/:id"
+                component={() => <Chat game={game} handleGame={handleGame} />}
+              />
+            </ProfileProvider>
+          </Router>
+        </AuthProvider>
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default App;

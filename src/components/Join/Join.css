@@ -1,11 +1,79 @@
 .join {
-  flex: 0.7 1;
-  display: flex;
-  flex-direction: column;
-  background-image: url("../../assets/bg.jpg");
+  height: 100vh;
+  width: 100%;
+  max-width: 2000px;
+  max-height: 1280px;
+  min-height: 213px;
+  margin: 0 auto;
+  position: relative;
+  overflow: hidden;
+  background-image: url("../../assets/bg-join1.svg");
+  background-position: -3px 50%;
   background-size: cover;
+  background-repeat: no-repeat;
 }
-.bg-join {
-  padding: 50px;
-  width: 60%;
+
+.join .people {
+  width: 30%;
+  top: 40%;
+  left: 35%;
+  position: absolute;
+  overflow: hidden;
+  max-width: 100%;
+  max-height: 100%;
+  display: block;
+  object-fit: container;
+}
+
+.join .font {
+  width: 50%;
+  top: 40%;
+  left: 25%;
+  position: absolute;
+  overflow: hidden;
+  max-width: 100%;
+  max-height: 100%;
+  display: block;
+  object-fit: container;
+  transition: width 2s;
+}
+
+.join .font:hover {
+  cursor: pointer;
+  width: 52%;
+}
+
+@media screen and (orientation: portrait) {
+  .join {
+    background-position: -100px 50%;
+  }
+
+  .join .people {
+    width: 300px;
+  }
+
+  .join .font {
+    width: 80%;
+    left: 15%;
+  }
+
+  .join .font:hover {
+    cursor: pointer;
+    width: 85%;
+  }
+}
+
+@media screen and (max-width: 1000px) and (min-width: 580px) {
+  .join .people {
+    width: 300px;
+  }
+
+  .join .font {
+    width: 60%;
+  }
+
+  .join .font:hover {
+    cursor: pointer;
+    width: 65%;
+  }
 }
